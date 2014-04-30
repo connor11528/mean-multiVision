@@ -10,7 +10,3 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 		controller: 'mainCtrl'
 	})
 }])
-
-app.controller('mainCtrl', function($scope){
-	$scope.test = 'I am a test'
-})
