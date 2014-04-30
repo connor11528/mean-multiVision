@@ -1,5 +1,6 @@
 var express = require('express')
 var stylus = require('stylus');
+var mongoose = require('mongoose')
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
 var port = 3000;
@@ -24,9 +25,35 @@ app.configure(function(){
 	app.use(express.static(__dirname + '/public'))
 });
 
+// DATABASE
+// ===============
+mongoose.connect('mongodb://localhost/multiVision');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Connection error...'));
+db.once('open', function callback(){
+	console.log('multiVision database opened.');
+});
+
+var messageSchema = mongoose.Schema({message: String})
+var Message = mongoose.model('Message', messageSchema);
+var mongoMessage;
+Message.findOne().exec(function(err, messageDoc){
+	mongoMessage = messageDoc.message;
+});
+
+
+// ROUTES
+// ===============
+// server side route for the partials files
+app.get('/partials/:partialPath', function(req, res){
+	res.render('partials/' + req.params.partialPath);
+})
+
 // everything handled by this route
 app.get('*', function(req, res){
-	res.render('index');
+	res.render('index', {
+		mongoMessage: mongoMessage
+	});
 })
 
 app.listen(port)
