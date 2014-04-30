@@ -3,7 +3,7 @@ var stylus = require('stylus');
 var mongoose = require('mongoose')
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // stylus
 function compile(str, path){
@@ -27,11 +27,17 @@ app.configure(function(){
 
 // DATABASE
 // ===============
-mongoose.connect('mongodb://localhost/multiVision');
+if (env === 'development'){
+	mongoose.connect('mongodb://localhost/multiVision');
+} else {
+	// connect to mongoLab mongoDB instance
+
+	mongoose.connect('mongodb://jasonshark:multivision@ds037478.mongolab.com:37478/multivision');
+}
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error...'));
 db.once('open', function callback(){
-	console.log('multiVision database opened.');
+	console.log('multiVision development database opened.');
 });
 
 var messageSchema = mongoose.Schema({message: String})
