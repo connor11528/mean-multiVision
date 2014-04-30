@@ -1,0 +1,12 @@
+doctype html
+html
+	head
+		link(href='favicon.ico', rel='shortcut icon', type='image/x-icon')
+		link(rel='stylesheet', href='/css/superhero.bootstrap.min.css')
+		// toastr for push notifications
+		link(rel='stylesheet', href='/bower_components/toastr/toastr.css')
+		//- stylus compiles to css
+		link(rel='stylesheet', href='/css/site.css')
+	body
+		block main-content
+		include scripts

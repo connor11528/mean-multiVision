@@ -1,0 +1,15 @@
+{
+  "name": "mean-multiVision",
+  "version": "0.0.0",
+  "authors": [
+    "Connor James Leech <connorleech@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "toastr": "~2.0.1",
+    "angular": "~1.2.16",
+    "angular-resource": "~1.2.16",
+    "angular-route": "~1.2.16"
+  }
+}
