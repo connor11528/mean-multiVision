@@ -43,8 +43,8 @@ db.once('open', function callback(){
 // ROUTES
 // ===============
 // server side route for the partials files
-app.get('/partials/:partialPath', function(req, res){
-	res.render('partials/' + req.params.partialPath);
+app.get('/views/*', function(req, res){
+	res.render('../../public/views/' + req.params);
 })
 
 // everything handled by this route

@@ -6,7 +6,7 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 	$locationProvider.html5Mode(true);
 
 	$routeProvider.when('/', {
-		templateUrl: '/partials/main',	// gets main.jade from server
+		templateUrl: '/views/main/main',	// gets main.jade from server
 		controller: 'mainCtrl'
 	})
 }])
