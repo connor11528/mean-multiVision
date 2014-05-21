@@ -1,20 +1,28 @@
-var express = require('express')
-var mongoose = require('mongoose')
+// MAIN SERVER SETUP
+// ==================
+var express = require('express'),
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy 	// passport uses strategies to implement auth
+
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
 
-// configuration object
-var config = require('./server/config/config')[env]
+// ENVIRONMENTS
+var envConfig = require('./server/config/environments')[env]
 
-// express configuration
-require('./server/config/express')(app, config)
+// EXPRESS, STYLUS
+require('./server/config/express')(app, envConfig)
 
-// connect to database
-require('./server/config/mongoose')(config)
+// DATABASE
+require('./server/config/mongoose')(envConfig)
 
-// routes
+// AUTHENTICATION
+require('./server/config/passport')
+
+// ROUTES
 require('./server/config/routes')(app)
 
-
-app.listen(config.port)
-console.log('Listening on port ', config.port, '...');
+// start server..
+app.listen(envConfig.port)
+console.log('Listening on port ', envConfig.port, '...');

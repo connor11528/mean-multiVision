@@ -1,27 +1,33 @@
-// Express configuration
+// configure Express middleware and stylus
+//========================================
 var express = require('express'),
-	stylus = require('stylus');
+	stylus = require('stylus'),
+	passport = require('passport')
 
-// recieves express app and configuration object
-module.exports = function(app, config){
+// recieves express app and environment config obj
+module.exports = function(app, envConfig){
 	
-	// configuration
+	// EXPRESS config
 	app.configure(function(){
-		app.set('views', config.rootPath + '/server/views');
-		app.set('view engine', 'jade');
-		app.use(express.logger('dev'));
-		app.use(express.bodyParser());
+		app.set('views', envConfig.rootPath + '/server/views');
+		app.set('view engine', 'jade')
+		app.use(express.logger('dev'))
+		app.use(express.cookieParser())
+		app.use(express.bodyParser())
+		app.use(express.session({ secret: 'supersecretmeanmultivision' }))
+		app.use(passport.initialize())
+		app.use(passport.session())		// tell passport to use sessions
 		// invoke stylus middleware
 		app.use(stylus.middleware({
-			src: config.rootPath + '/public',
+			src: envConfig.rootPath + '/public',
 			compile: compile
 		}));
 
 		// static routing to public directory
-		app.use(express.static(config.rootPath + '/public'))
+		app.use(express.static(envConfig.rootPath + '/public'))
 	});
 
-	// stylus
+	// STYLUS
 	function compile(str, path){
 		return stylus(str).set('filename', path);
 	}

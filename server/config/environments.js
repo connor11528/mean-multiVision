@@ -1,3 +1,5 @@
+// configure environments
+//========================
 var path = require('path');		// normalizes path strings
 
 var rootPath = path.normalize(__dirname + '/../../');
