@@ -1,6 +1,7 @@
 // Database configuration
 // ======================
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	crypto = require('crypto')
 
 module.exports = function(envConfig){
 	// CONNECTION
@@ -16,8 +17,24 @@ module.exports = function(envConfig){
 	// USERS
 	var userSchema = mongoose.Schema({
 		name: String,
-		username: String
+		username: String,
+		salt: String,
+		hashed_pwd: String
 	});
+
+	// authentication method attached to schema
+	userSchema.methods = {
+		authenticate: function(passwordToMatch){
+			// take password client's trying to match,
+			// hash it
+			// compare to the hashed pwd in the database
+
+			return hashPwd(this.salt, '')
+
+		}
+	}
+
+
 	var User = mongoose.model('User', userSchema);
 
 	// create default users
@@ -26,14 +43,35 @@ module.exports = function(envConfig){
 		.exec(function(err, collection){
 			// if no users in the collection
 			if (collection.length === 0){
+				var salt, hash
+				salt = createSalt()
+				hash = hashPwd(salt, 'connor')	// default user password is their name
+
+				// create the default users
 				User.create({
 					name: 'Connor James Leech',
-					username: 'connorleech'
+					username: 'connorleech',
+					salt: salt,
+					hashed_pwd: hash
 				});
+				salt = createSalt()
+				hash = hashPwd(salt, 'jason')
 				User.create({
 					name: 'Jason Shark',
-					username: 'jasonshark'
+					username: 'jasonshark',
+					salt: salt,
+					hashed_pwd: hash
 				})
 			}
 		})
 };
+
+function createSalt(){
+	return crypto.randomBytes(128).toString('base64')
+}
+
+function hashPwd(salt, pwd){
+	// HMAC: Hash Message Authentication Code
+	var hmac = crypto.createHmac('sha1', salt)	// sha1 algorithm
+	return hmac.update(pwd).digest('hex')
+}

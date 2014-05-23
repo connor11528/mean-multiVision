@@ -11,9 +11,10 @@ passport.use(new LocalStrategy(
 		// verify user exists in database
 		User.findOne({username:username})
 			.exec(function(err, user){
-				if (err){ return done(err) }// error with database
+				if (err){ return done(err) } // error with database
 
-				if (user){
+				// authenticate method defined on User schema
+				if (user && user.authenticate(password)){
 					return done(null, user)	// supply passport with authenticated user
 				} else {
 					return done(null, false, { message: 'username not found' });
