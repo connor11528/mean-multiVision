@@ -20,8 +20,10 @@ app.service('Auth', ['$http', '$q', 'Identity', function($http, $q, Identity){
 
 			return deferred.promise;
 		},
+
 		logoutUser: function(){
 			var dfd = $q.defer()
+			// params must be added to post req or angular will turn it into a get
 			$http.post('/logout', { logout: true }).then(function(){
 				Identity.currentUser = undefined
 				dfd.resolve()

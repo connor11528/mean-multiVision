@@ -22,14 +22,15 @@ module.exports = function(envConfig){
 		hashed_pwd: String
 	});
 
-	// authentication method attached to schema
+	// check a user is authenticated, passing in a password
 	userSchema.methods = {
 		authenticate: function(passwordToMatch){
 			// take password client's trying to match,
 			// hash it
 			// compare to the hashed pwd in the database
-
-			return hashPwd(this.salt, '')
+			// this.salt == current user's salt
+			return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd	// check it's equal to the
+																			// current user's hashed password
 
 		}
 	}

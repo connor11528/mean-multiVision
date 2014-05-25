@@ -25,6 +25,11 @@ module.exports = function(app){
 		auth(req, res, next)
 	})
 
+	app.post('/logout', function(req, res, next){
+		req.logout()	// method added by passport
+		res.end()	// end response
+	})
+
 	// everything else handled by this route
 	app.get('*', function(req, res){
 		res.render('index');
