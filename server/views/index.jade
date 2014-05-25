@@ -10,7 +10,8 @@ block main-content
 				ul.nav.navbar-nav
 					li
 						a(href='/') Home
-				div(ng-include="'/views/account/navbar-login'")
+				//- include authentication section in the navbar
+				div(ng-include="'/views/navbar-login'")
 	section.content
 		div(ng-view)
 

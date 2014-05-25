@@ -27,6 +27,13 @@ module.exports = function(app, envConfig){
 		app.use(express.static(envConfig.rootPath + '/public'))
 	});
 
+	// DEVELOPMENT
+	// middleware that spits out current user OR undefined
+	// app.use(function(req, res, next){
+	// 	console.log(req.user)
+	// 	next()
+	// })
+
 	// STYLUS
 	function compile(str, path){
 		return stylus(str).set('filename', path);

@@ -9,5 +9,7 @@ html
 		//- stylus compiles to css
 		link(rel='stylesheet', href='/css/site.css')
 	body(ng-app='mean-multiVision')
+		//- include information about logged in user
+		include currentUser
 		block main-content
 		include scripts

@@ -18,7 +18,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$location', 'notifier', 'Auth',
 			// reset fields
 			$scope.username = ''
 			$scope.password = ''
-			notifier.notify('Log out successful!')
+			notifier.info('Log out successful!')
 			$location.path('/')		// redirect
 		})
 	}

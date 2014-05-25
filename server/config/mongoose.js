@@ -31,7 +31,6 @@ module.exports = function(envConfig){
 			// this.salt == current user's salt
 			return hashPwd(this.salt, passwordToMatch) === this.hashed_pwd	// check it's equal to the
 																			// current user's hashed password
-
 		}
 	}
 
@@ -50,7 +49,7 @@ module.exports = function(envConfig){
 
 				// create the default users
 				User.create({
-					name: 'Connor James Leech',
+					name: 'coNnor JaMes lEEch',
 					username: 'connorleech',
 					salt: salt,
 					hashed_pwd: hash
@@ -58,7 +57,7 @@ module.exports = function(envConfig){
 				salt = createSalt()
 				hash = hashPwd(salt, 'jason')
 				User.create({
-					name: 'Jason Shark',
+					name: 'jason shark',
 					username: 'jasonshark',
 					salt: salt,
 					hashed_pwd: hash
@@ -67,6 +66,7 @@ module.exports = function(envConfig){
 		})
 };
 
+// helper functions
 function createSalt(){
 	return crypto.randomBytes(128).toString('base64')
 }

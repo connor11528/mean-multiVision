@@ -32,6 +32,9 @@ module.exports = function(app){
 
 	// everything else handled by this route
 	app.get('*', function(req, res){
-		res.render('index');
+		// pass the index page with currentUser data
+		res.render('index', {
+			currentUser: req.user
+		});
 	})
 }
