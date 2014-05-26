@@ -1,14 +1,25 @@
 // server side routing
-var passport = require('passport')
+var passport = require('passport'),
+	mongoose = require('mongoose'),
+	User = mongoose.model('User')
 
 module.exports = function(app){
 
-	// server side route for the partials files
+	// Users API
+	// only available to admins
+	app.get('/api/users', requiresRole('admin'), function(req, res, next){
+		// get list of users
+		User.find({}).exec(function(err, usersCollection){
+			res.send(usersCollection)
+		})
+	})
+
+	// server side route for the angularjs partials
 	app.get('/views/*', function(req, res){
 		res.render('../../public/views/' + req.params);
 	})
 
-	// XHR post handling
+	// XHR post login
 	app.post('/login', function(req, res, next){
 		var auth = passport.authenticate('local', function(err, user){
 			if (err) { return next(err) }
@@ -37,4 +48,30 @@ module.exports = function(app){
 			currentUser: req.user
 		});
 	})
+}
+
+
+// HELPERS
+//==========
+// middleware to check if user is authenticated
+var requiresApiLogin = function(req, res, next){
+	if( !req.isAuthenticated() ){	// passport method
+		res.status(403)
+		// res.render('403')
+		res.end()
+	} else {
+		next()
+	}
+}
+
+var requiresRole = function(role){
+	return function(req, res, next){
+		// user not authenticated or role is not found
+		if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1){
+			res.status(403)
+			res.end()
+		} else {
+			next()
+		}
+	}
 }

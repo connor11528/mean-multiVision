@@ -11,6 +11,7 @@
 			a.dropdown-toggle(href="", data-toggle="dropdown") {{ identity.currentUser.name | titleize:identity.currentUser.name }}
 				b.caret
 			ul.dropdown-menu
+				//- check if logged in user has 'admin' role
 				li(ng-show="identity.currentUser.isAdmin()")
 					a(href="/admin/users") User Admin
 				li
