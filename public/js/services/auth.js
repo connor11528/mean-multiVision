@@ -1,5 +1,5 @@
 
-app.service('Auth', ['$http', '$q', 'Identity', function($http, $q, Identity){
+app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Identity, User){
 	return {
 		authenticateUser: function(username, password){
 			// returns a promise
@@ -9,8 +9,13 @@ app.service('Auth', ['$http', '$q', 'Identity', function($http, $q, Identity){
 			$http.post('/login', { username: username, password: password })
 				.then(function(response){
 					if(response.data.success){
-						// log user in
-						Identity.currentUser = response.data.user
+						
+						// put user object from server into client model..
+						var user = new User()
+						angular.extend(user, response.data.user)
+
+						// set current user
+						Identity.currentUser = user 	// has .isAdmin method
 						deferred.resolve(true)
 					} else {
 						// error logging in

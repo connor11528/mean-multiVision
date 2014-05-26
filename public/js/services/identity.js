@@ -1,15 +1,22 @@
 
 // Authentication
 
-app.factory('Identity', ['$window', function($window){
+app.factory('Identity', ['$window', 'User', function($window, User){
 	var currentUser
+
 	// if the currentUserObj was supplied from the server
 	if(!!$window.currentUserObj){
-		currentUser = $window.currentUserObj
+
+		currentUser = new User()
+
+		// extend the object with info from the server
+		angular.extend(currentUser, $window.currentUserObj)
 	}
+
 	return {
-		currentUser: currentUser,	// gets it from the server
+		currentUser: currentUser,
 		isAuthenticated: function(){
+			// this === parent object
 			return !!this.currentUser
 		},
 		// isAuthorized: function(role){

@@ -19,7 +19,8 @@ module.exports = function(envConfig){
 		name: String,
 		username: String,
 		salt: String,
-		hashed_pwd: String
+		hashed_pwd: String,
+		roles: [String]		// for authorization
 	});
 
 	// check a user is authenticated, passing in a password
@@ -52,7 +53,8 @@ module.exports = function(envConfig){
 					name: 'coNnor JaMes lEEch',
 					username: 'connorleech',
 					salt: salt,
-					hashed_pwd: hash
+					hashed_pwd: hash,
+					roles: ['admin']
 				});
 				salt = createSalt()
 				hash = hashPwd(salt, 'jason')

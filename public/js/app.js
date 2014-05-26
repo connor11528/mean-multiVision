@@ -1,6 +1,9 @@
 'use strict';
 
-var app = angular.module('mean-multiVision', ['ngResource', 'ngRoute']);
+var app = angular.module('mean-multiVision', [
+	'ngResource', 
+	'ngRoute'
+]);
 
 app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
 	$locationProvider.html5Mode(true);
