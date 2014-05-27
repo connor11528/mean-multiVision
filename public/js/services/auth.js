@@ -9,7 +9,6 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 			$http.post('/login', { username: username, password: password })
 				.then(function(response){
 					if(response.data.success){
-						
 						// put user object from server into client model..
 						var user = new User()
 						angular.extend(user, response.data.user)
@@ -34,6 +33,16 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 				dfd.resolve()
 			})
 			return dfd.promise
+		},
+
+		routeAccessFor: function(role){
+			// check that user has role
+			if(Identity.userHasRole(role)){
+				return true
+			} else {
+				// route change error
+				return $q.reject('not authorized')
+			}
 		}
 	}
 }])

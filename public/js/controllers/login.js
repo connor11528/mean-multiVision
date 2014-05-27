@@ -10,6 +10,7 @@ app.controller('LoginCtrl', ['$scope', '$http', '$location', 'notifier', 'Auth',
 			} else {
 				notifier.error('Error logging in!')
 			}
+			$location.path('/')		// redirect
 		})
 	}
 

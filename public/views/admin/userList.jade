@@ -1,0 +1,10 @@
+div.container
+	table.table.table-bordered
+		tr
+			th Name
+			th Username
+			th Roles
+		tr(ng-repeat='user in users')
+			td {{ user.name }}
+			td {{ user.username }}
+			td {{ user.roles }}

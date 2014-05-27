@@ -19,8 +19,8 @@ app.factory('Identity', ['$window', 'User', function($window, User){
 			// this === parent object
 			return !!this.currentUser
 		},
-		// isAuthorized: function(role){
-		// 	return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1
-		// }
+		userHasRole: function(role){
+			return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1
+		}
 	}
 }])

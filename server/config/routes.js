@@ -46,7 +46,7 @@ module.exports = function(app){
 		// pass the index page with currentUser data
 		res.render('index', {
 			currentUser: req.user
-		});
+		})
 	})
 }
 
@@ -56,9 +56,10 @@ module.exports = function(app){
 // middleware to check if user is authenticated
 var requiresApiLogin = function(req, res, next){
 	if( !req.isAuthenticated() ){	// passport method
-		res.status(403)
-		// res.render('403')
-		res.end()
+		// not authenticated, send them home
+		res.render('index', {
+			currentUser: req.user
+		})
 	} else {
 		next()
 	}
@@ -68,8 +69,10 @@ var requiresRole = function(role){
 	return function(req, res, next){
 		// user not authenticated or role is not found
 		if(!req.isAuthenticated() || req.user.roles.indexOf(role) === -1){
-			res.status(403)
-			res.end()
+			// not authenticated, send them home
+			res.render('index', {
+				currentUser: req.user
+			})
 		} else {
 			next()
 		}
