@@ -25,6 +25,24 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 			return deferred.promise;
 		},
 
+		createUser: function(userData){
+			var newUser = new User(userData)
+
+			var dfd = $q.defer()
+
+			newUser.$save().then(function(){
+				// log user in
+				Identity.currentUser = newUser
+
+				dfd.resolve()
+			}, function(response){
+				// user not created, pass in reason
+				dfd.reject(response.data.reason)
+			})
+
+			return dfd.promise
+		},
+
 		logoutUser: function(){
 			var dfd = $q.defer()
 			// params must be added to post req or angular will turn it into a get

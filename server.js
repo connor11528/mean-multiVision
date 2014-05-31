@@ -8,7 +8,7 @@ var app = express()
 // ENVIRONMENTS
 var envConfig = require('./server/config/environments')[env]
 
-// EXPRESS, STYLUS
+// EXPRESS middleware
 require('./server/config/express')(app, envConfig)
 
 // DATABASE

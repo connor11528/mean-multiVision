@@ -21,12 +21,16 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 	$routeProvider
 		.when('/', {
 			templateUrl: '/views/main/main',	// gets main.jade from server
-			controller: 'mainCtrl'
+			controller: 'MainCtrl'
 		})
 		.when('/admin/users', {
 			templateUrl: '/views/admin/userList',
 			controller: 'UserListCtrl',
 			resolve: checkRole.admin
+		})
+		.when('/signup', {
+			templateUrl: '/views/account/signup',
+			controller: 'SignUpCtrl',
 		})
 		.otherwise({ redirectTo: '/' })
 }])

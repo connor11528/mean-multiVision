@@ -15,9 +15,19 @@
   "dependencies": {
     "express": "~3.4.4",
     "jade": "^1.3.1",
-    "stylus": "^0.44.0",
+    "less-middleware": "^1.0.3",
     "mongoose": "^3.8.8",
-    "passport-local": "^1.0.0",
-    "passport": "^0.2.0"
+    "passport": "^0.2.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-less": "^0.11.1",
+    "karma": "^0.12.16",
+    "karma-chai-plugins": "^0.2.1",
+    "karma-mocha": "^0.1.3",
+    "load-grunt-tasks": "^0.4.0",
+    "mocha": "^1.19.0"
   }
 }

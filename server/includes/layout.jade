@@ -3,11 +3,18 @@ html
 	head
 		title multiVision
 		link(href='favicon.ico', rel='shortcut icon', type='image/x-icon')
-		link(rel='stylesheet', href='/css/superhero.bootstrap.min.css')
-		// toastr for push notifications
+
+		//- Toastr notifications styles
 		link(rel='stylesheet', href='/bower_components/toastr/toastr.css')
-		//- stylus compiles to css
-		link(rel='stylesheet', href='/css/site.css')
+
+		//- Ionic styles
+		//- link(rel='stylesheet', href='/bower_components/ionic/ionic.css')
+		
+		//- Bootswatch styles
+		link(rel='stylesheet', href='/stylesheets/spacelab.css')
+
+		//- Custom styles
+		link(rel='stylesheet', href='/stylesheets/site.css')
 	body(ng-app='mean-multiVision')
 		//- include information about logged in user
 		include currentUser
