@@ -1,7 +1,6 @@
 // configure Express middleware
 //========================================
 var express = require('express'),
-	stylus = require('stylus'),
 	passport = require('passport')
 
 // recieves express app and environment config obj
