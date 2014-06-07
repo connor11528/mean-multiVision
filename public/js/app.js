@@ -11,9 +11,15 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 
 	var checkRole = {
 		admin: {
+			// inject Auth service
 			auth: function(Auth){
 				// return true or an unresolved promise (which will trigger routeChangeError)
 				return Auth.routeAccessFor('admin')					
+			}
+		},
+		user: {
+			auth: function(Auth){
+				return Auth.authorizeUserForRoute()
 			}
 		}
 	}
@@ -31,6 +37,11 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 		.when('/signup', {
 			templateUrl: '/views/account/signup',
 			controller: 'SignUpCtrl',
+		})
+		.when('/profile', {
+			templateUrl: 'views/account/profile',
+			controller: 'ProfileCtrl',
+			resolve: checkRole.user
 		})
 		.otherwise({ redirectTo: '/' })
 }])

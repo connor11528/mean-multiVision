@@ -1,4 +1,3 @@
-
 // middleware to check if user is authenticated
 exports.requiresApiLogin = function(req, res, next){
 	if( !req.isAuthenticated() ){	// passport method

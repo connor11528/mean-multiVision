@@ -1,9 +1,12 @@
 var mongoose = require('mongoose'),
 	encrypt = require('../utils/encryption')
 
-// USERS
+// USERS schema
 var userSchema = mongoose.Schema({
-	name: { type: String, required: '{PATH} is required!' },
+	name: { type: String, 
+		required: '{PATH} is required!' // required true, string given is error message
+										// {PATH} is name of property
+	},
 	username: {
 		type: String,
 		unique: true,	// creates unique index inside MongoDB
@@ -12,7 +15,7 @@ var userSchema = mongoose.Schema({
 	salt: { type: String, required: '{PATH} is required!' },
 	hashed_pwd: { type: String, required: '{PATH} is required!' },
 	roles: [String]		// for authorization
-});
+})
 
 // check a user is authenticated, passing in a password
 userSchema.methods = {

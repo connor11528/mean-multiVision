@@ -43,6 +43,27 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 			return dfd.promise
 		},
 
+
+		updateCurrentUser: function(newData){
+			var dfd = $q.defer()
+
+			// create new user object
+			var updatedUser = angular.copy(Identity.currentUser)
+			angular.extend(updatedUser, newData)
+
+			copy.$update()	// custom PUT request for our $resource
+				.then(function(){
+					// update current user
+					Identity.currentUser = updatedUser
+					dfd.resolve()
+				}).error(function(reason){
+					dfd.reject(response.data.reason)
+				})
+
+			return dfd.promise
+
+		},
+
 		logoutUser: function(){
 			var dfd = $q.defer()
 			// params must be added to post req or angular will turn it into a get
@@ -59,6 +80,14 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 				return true
 			} else {
 				// route change error
+				return $q.reject('not authorized')
+			}
+		},
+		authorizeUserForRoute: function(){
+			if(Identity.isAuthenticated()){
+				// if user is authenticated allow access to route
+				return true
+			} else {
 				return $q.reject('not authorized')
 			}
 		}

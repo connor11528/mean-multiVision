@@ -13,6 +13,9 @@ module.exports = function(app){
 	// create user
 	app.post('/api/users', users.createUser)
 
+	// update user
+	app.put('/api/users', users.updateUser)
+
 	// log user in
 	app.post('/login', users.logUserIn)
 

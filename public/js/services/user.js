@@ -2,7 +2,13 @@
 
 app.service('User', ['$resource', function($resource){
 	// User model
-	var userResource = $resource('/api/users/:userId', { _id: '@id'})	// id tells angular what the id is
+	var userResource = $resource('/api/users/:userId', { _id: '@id'}, {
+		// PUT requets for updating user
+		update: {
+			method: 'PUT',
+			isArray: false	// expect a single object
+		}
+	})
 
 	// adds isAdmin to every instance of $resource
 	userResource.prototype.isAdmin = function(){
