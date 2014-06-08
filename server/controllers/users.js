@@ -2,7 +2,7 @@ var User = require('mongoose').model('User'),
 	passport = require('passport'),
 	encrypt = require('../utils/encryption')
 
-// get list of users
+
 module.exports = {
 
 	getUsers: function(req, res){
@@ -45,7 +45,36 @@ module.exports = {
 	},
 
 	updateUser: function(req, res){
+		// get data from request
+		var userUpdates = req.body
 
+		// security check (is logged in and is not admin)
+		if(req.user._id != userUpdates._id && !req.user.hasRole('admin')){
+			res.status(403)
+			console.log('failed security check')
+			return res.end()
+		}
+
+		// update current user
+		req.user.name = userUpdates.name
+		req.user.username = userUpdates.username
+
+		if(userUpdates.password && userUpdates.password.length > 0){
+			// if they changed their password, make new hashed pwd
+			req.user.salt = encrypt.createSalt()
+			req.user.hashed_pwd = encrypt.hashPwd(req.user.salt, userUpdates.password)
+		}
+
+		// update database
+		req.user.save(function(err){
+			// error updating database
+			if (err){ 
+				res.status(400); 
+				return res.send({ reason: err.toString() }) 
+			}
+
+			res.send(req.user)
+		})
 	},
 
 	// XHR post login

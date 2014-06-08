@@ -51,17 +51,17 @@ app.service('Auth', ['$http', '$q', 'Identity', 'User', function($http, $q, Iden
 			var updatedUser = angular.copy(Identity.currentUser)
 			angular.extend(updatedUser, newData)
 
-			copy.$update()	// custom PUT request for our $resource
+			updatedUser.$update()	// custom PUT request for our $resource
 				.then(function(){
 					// update current user
 					Identity.currentUser = updatedUser
+
 					dfd.resolve()
-				}).error(function(reason){
-					dfd.reject(response.data.reason)
+				}, function(reason){
+					
+					dfd.reject(reason)
 				})
-
 			return dfd.promise
-
 		},
 
 		logoutUser: function(){

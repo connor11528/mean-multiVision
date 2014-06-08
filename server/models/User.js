@@ -26,6 +26,9 @@ userSchema.methods = {
 		// this.salt == current user's salt
 		return encrypt.hashPwd(this.salt, passwordToMatch) === this.hashed_pwd	// check it's equal to the
 																		// current user's hashed password
+	},
+	hasRole: function(role){
+		return this.roles.indexOf(role) > -1
 	}
 }
 

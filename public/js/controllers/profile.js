@@ -2,7 +2,7 @@
 
 app.controller('ProfileCtrl', ['$scope', "Auth", "Identity", "notifier", function($scope, Auth, Identity, notifier){
 	$scope.name = Identity.currentUser.name
-	$scope.email = Identity.currentUser.email
+	$scope.email = Identity.currentUser.username
 
 	$scope.update = function(){
 		var updatedData = {
@@ -11,14 +11,15 @@ app.controller('ProfileCtrl', ['$scope', "Auth", "Identity", "notifier", functio
 		}
 
 		if ($scope.password && $scope.password.length > 0){
-			newUserData.password = $scope.password
+			updatedData.password = $scope.password
 		}
 
 		// update the user's data
-		Auth.updateCurrentUser(newUserData).then(function(){
+		Auth.updateCurrentUser(updatedData).then(function(){
 			notifier.notify('Your data has been updated')
-		}).error(function(err){
-			notify.error('Data not updated: ', err)
+		}, function(err){
+			console.log(err)
+			notifier.error('Data not updated: ' + err.data.reason)
 		})
 	}
 }])
