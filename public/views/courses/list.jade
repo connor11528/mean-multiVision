@@ -1,10 +1,17 @@
-.container
+.container.top-padding-med
+	.pull-right
+		form.form-inline
+			.form-group
+				input.form-control(ng-model='searchTerm', placeholder='Filter')
+			.form-group.margin-left-med
+				select.form-control(ng-options='obj.value as obj.text for obj in sortOptions', ng-model='sortOrder')
 	table.table.table-hover.table-striped.table-condensed
 		thead
 			tr
 				th Title
 				th Publish Date
 		tbody
-			tr(ng-repeat='course in courses')
+			//- filter: scopePropertyIWantToFilterBy, sorting == orderBy
+			tr(ng-repeat='course in courses | filter: searchTerm | orderBy: sortOrder')
 				td {{ course.title }}
 				td {{ course.published | date }}

@@ -1,7 +1,7 @@
 // server side routing
 var passport = require('passport'),
 	users = require('../controllers/users.js'),
-	courses = require('../controllers/courses.js')
+	courses = require('../controllers/courses.js'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	rolesUtil = require('../utils/roles')

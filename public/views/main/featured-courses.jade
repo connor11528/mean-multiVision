@@ -2,5 +2,5 @@
 	.panel-heading.text-center Featured Courses
 	.panel-body
 		.row(ng-repeat="(key, course) in courses | filter: {featured: true}") 
-			.col-md-3 {{course.published | date:'MMM d'}}
-			.col-md-9 {{course.name}}
+			.col-md-3 {{ course.published | date:'MMM d' }}
+			.col-md-9 {{ course.title }}
