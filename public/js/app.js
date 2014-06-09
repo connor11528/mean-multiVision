@@ -9,6 +9,7 @@ var app = angular.module('mean-multiVision', [
 app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
 	$locationProvider.html5Mode(true)
 
+	// used for 'resolve' functions
 	var checkRole = {
 		admin: {
 			// inject Auth service
@@ -42,6 +43,10 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 			templateUrl: 'views/account/profile',
 			controller: 'ProfileCtrl',
 			resolve: checkRole.user
+		})
+		.when('/courses', {
+			templateUrl: 'views/courses/list',
+			controller: 'CourseListCtrl',
 		})
 		.otherwise({ redirectTo: '/' })
 }])

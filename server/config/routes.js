@@ -1,6 +1,7 @@
 // server side routing
 var passport = require('passport'),
 	users = require('../controllers/users.js'),
+	courses = require('../controllers/courses.js')
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	rolesUtil = require('../utils/roles')
@@ -16,6 +17,8 @@ module.exports = function(app){
 	// update user
 	app.put('/api/users', users.updateUser)
 
+	app.get('/api/courses', courses.getCourses)
+
 	// log user in
 	app.post('/login', users.logUserIn)
 
@@ -25,6 +28,11 @@ module.exports = function(app){
 	// server side route for the angularjs partials
 	app.get('/views/*', function(req, res){
 		res.render('../../public/views/' + req.params);
+	})
+
+	// not found error for undefined API routes
+	app.all('/api/*', function(req, res){
+		res.send(404)
 	})
 
 	// everything else handled by this route

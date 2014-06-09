@@ -1,7 +1,8 @@
 // Database configuration
 // ======================
 var mongoose = require('mongoose'),
-	userModel = require('../models/User')
+	userModel = require('../models/User'),
+	courseModel = require('../models/Course')
 
 module.exports = function(envConfig){
 	// CONNECTION
@@ -15,5 +16,6 @@ module.exports = function(envConfig){
 	})
 
 	// populate empty users collection with defaults
-	userModel.createDefaultUsers()
+	userModel.createDefaults()
+	courseModel.createDefaults()
 };

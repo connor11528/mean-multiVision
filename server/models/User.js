@@ -36,7 +36,7 @@ userSchema.methods = {
 var User = mongoose.model('User', userSchema);
 
 // create default users
-exports.createDefaultUsers = function(){
+exports.createDefaults = function(){
 	User
 		.find({})		// all documents from collection
 		.exec(function(err, collection){
