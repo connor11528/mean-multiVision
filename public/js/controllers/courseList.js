@@ -1,8 +1,8 @@
 'use strict'
 
-app.controller('CourseListCtrl', ['$scope', 'CourseCache', function($scope, CourseCache){
+app.controller('CourseListCtrl', ['$scope', 'Course', function($scope, Course){
 	
-	$scope.courses = CourseCache.query()
+	$scope.courses = Course.query()
 
 	$scope.searchTerm = ''
 

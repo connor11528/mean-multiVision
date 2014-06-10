@@ -17,7 +17,10 @@ module.exports = function(app){
 	// update user
 	app.put('/api/users', users.updateUser)
 
+	// Courses API
 	app.get('/api/courses', courses.getCourses)
+
+	app.get('/api/courses/:id', courses.getCourseById)
 
 	// log user in
 	app.post('/login', users.logUserIn)

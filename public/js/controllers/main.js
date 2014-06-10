@@ -1,5 +1,5 @@
 'use strict';
 
-app.controller('MainCtrl', ['$scope', 'CourseCache', function($scope, CourseCache){
-	$scope.courses = CourseCache.query()
+app.controller('MainCtrl', ['$scope', 'Course', function($scope, Course){
+	$scope.courses = Course.query()
 }])

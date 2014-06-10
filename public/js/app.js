@@ -40,13 +40,17 @@ app.config(["$routeProvider", "$locationProvider", function($routeProvider, $loc
 			controller: 'SignUpCtrl',
 		})
 		.when('/profile', {
-			templateUrl: 'views/account/profile',
+			templateUrl: '/views/account/profile',
 			controller: 'ProfileCtrl',
 			resolve: checkRole.user
 		})
 		.when('/courses', {
-			templateUrl: 'views/courses/list',
+			templateUrl: '/views/courses/list',
 			controller: 'CourseListCtrl',
+		})
+		.when('/courses/:id', {
+			templateUrl: '/views/courses/details',
+			controller: 'CourseDetailsCtrl',
 		})
 		.otherwise({ redirectTo: '/' })
 }])

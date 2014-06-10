@@ -13,5 +13,6 @@
 		tbody
 			//- filter: scopePropertyIWantToFilterBy, sorting == orderBy
 			tr(ng-repeat='course in courses | filter: searchTerm | orderBy: sortOrder')
-				td {{ course.title }}
+				td 
+					a(ng-href='/courses/{{ course._id }}') {{ course.title }}
 				td {{ course.published | date }}
